@@ -1,6 +1,6 @@
 # AWS Log Processor
 
-A TypeScript CLI tool built with Bun for searching and downloading AWS CloudWatch logs for Lambda functions.
+A TypeScript CLI tool for searching and downloading AWS CloudWatch logs for Lambda functions.
 
 ## Features
 
@@ -12,7 +12,7 @@ A TypeScript CLI tool built with Bun for searching and downloading AWS CloudWatc
 
 ## Requirements
 
-- [Bun](https://bun.sh/) (>= 1.0.0)
+- [Node.js](https://nodejs.org/) (>= 16.0.0)
 - [AWS CLI](https://aws.amazon.com/cli/) (properly configured with credentials)
 
 ## Installation
@@ -23,23 +23,29 @@ git clone https://github.com/yourusername/aws-log-processor.git
 cd aws-log-processor
 
 # Install dependencies
-bun install
+npm install
+
+# Build the project
+npm run build
 
 # Make the CLI executable
-chmod +x src/cli.ts
+chmod +x dist/cli.js
+
+# Optional: Install globally
+npm link
 ```
 
 ## Usage
 
 ```bash
 # Basic usage
-bun start search \
+npm start -- search \
   --log-group "/aws/lambda/your-lambda-function" \
   --search-pattern "ERROR" \
   --destination "./logs"
 
 # With time range
-bun start search \
+npm start -- search \
   --log-group "/aws/lambda/your-lambda-function" \
   --search-pattern "Exception" \
   --destination "./logs" \
@@ -47,12 +53,18 @@ bun start search \
   --to "2023-01-02T00:00:00Z"
 
 # With AWS profile and region
-bun start search \
+npm start -- search \
   --log-group "/aws/lambda/your-lambda-function" \
   --search-pattern "Error" \
   --destination "./logs" \
   --profile "dev" \
   --region "us-east-1"
+
+# If installed globally
+aws-log-processor search \
+  --log-group "/aws/lambda/your-lambda-function" \
+  --search-pattern "ERROR" \
+  --destination "./logs"
 ```
 
 ### Options
@@ -69,13 +81,13 @@ bun start search \
 
 ```bash
 # Run in development mode with auto-reload
-bun dev search --log-group "/aws/lambda/your-function" --search-pattern "ERROR" --destination "./logs"
+npm run dev -- search --log-group "/aws/lambda/your-function" --search-pattern "ERROR" --destination "./logs"
 
 # Type check
-bun run typecheck
+npm run typecheck
 
 # Build for production
-bun run build
+npm run build
 ```
 
 ## License
